@@ -34,8 +34,6 @@ $db = new DB_CONNECT();
 if (isset($_GET["submit"])) {
     $ID = $_GET["ID"];
 
- 
-    // get a leraar from leraar table
     $result = mysql_query('SELECT * FROM leraar WHERE ID = '. $ID .' ');
  
     if (!empty($result)) {
@@ -44,25 +42,18 @@ if (isset($_GET["submit"])) {
         if (mysql_num_rows($result) > 0) {
  
             $result = mysql_fetch_array($result);
- 
             $leraar = array();
             $leraar["ID"] = $result["ID"];
             $leraar["Naam"] = $result["Naam"];
-//            $leraar["price"] = $result["price"];
-//            $leraar["description"] = $result["description"];
-//            $leraar["created_at"] = $result["created_at"];
-//            $leraar["updated_at"] = $result["updated_at"];
-//            // success
             $response["success"] = 1;
- 
-            // user node
             $response["leraar"] = array();
  
             array_push($response["leraar"], $leraar);
  
-            // echoing JSON response
             echo json_encode($response);
-        } else {
+        } 
+        else 
+        {
             // no leraar found
             $response["success"] = 0;
             $response["message"] = "No leraar found";
@@ -70,32 +61,26 @@ if (isset($_GET["submit"])) {
             // echo no users JSON
             echo json_encode($response);
         }
-    } else {
+    } 
+    else 
+    {
         // no leraar found
     
         $response["success"] = 0;
         $response["message"] = "No leraar found2";
-        
- 
+
         // echo no users JSON
         echo json_encode($response);
     }
-} else {
-    // required field is missing
+} 
+else 
+{
     $response["success"] = 0;
     $response["message"] = "Required field(s) is missing";
  
-    // echoing JSON response
     echo json_encode($response);
 }
 ?>
-
-
-
-
-
-
-
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
             <p>Add Name and E-mail</p>
             <p>ID: <input type=number name="ID"
