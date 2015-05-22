@@ -43,16 +43,6 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
             ft.replace(R.id.contentFragment, mapFragment);
             ft.commit();
         }
-
-        /*
-        Button b = (Button)findViewById(R.id.button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "hallo", Toast.LENGTH_SHORT).show();
-            }
-        });
-        */
     }
 
     @Override
