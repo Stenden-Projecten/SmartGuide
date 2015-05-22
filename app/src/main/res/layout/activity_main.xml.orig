@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<<<<<<< HEAD
+    android:layout_height="match_parent"
+    android:padding="0dp"
+    tools:context=".MainActivity">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/contentFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>
+=======
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:id="@+id/test"
+    android:background="@drawable/blur">
+
+    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/knoptekst"
+        android:id="@+id/button"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button2"
+        android:layout_marginTop="47dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
+>>>>>>> 6aab4557dc6677d3e8ae5cb4aecdd6a007ef3666
