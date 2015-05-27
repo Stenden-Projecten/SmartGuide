@@ -1,8 +1,8 @@
 package com.stenden.smartguide;
 
-import android.app.FragmentTransaction;
-import android.net.Uri;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,13 +12,13 @@ import android.widget.Switch;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 
-public class MainActivity extends ActionBarActivity implements OnMapReadyCallback, GuideFragment.OnFragmentInteractionListener {
-    MapFragment mapFragment;
+public class MainActivity extends ActionBarActivity implements OnMapReadyCallback {
+    SupportMapFragment mapFragment;
     GuideFragment guideFragment;
 
     final String GUIDE_TAG = "guideFragment";
@@ -35,19 +35,19 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
             isIn3D = savedInstanceState.getBoolean("isIn3D");
         }
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        mapFragment = (MapFragment)getFragmentManager().findFragmentByTag(MAP_TAG);
+        mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentByTag(MAP_TAG);
         if(mapFragment == null) {
             Log.i("SmartGuide", "Creating new MapFragment");
 
-            mapFragment = MapFragment.newInstance();
+            mapFragment = SupportMapFragment.newInstance();
             mapFragment.getMapAsync(this);
 
             ft.add(R.id.contentFragment, mapFragment, MAP_TAG);
         }
 
-        guideFragment = (GuideFragment)getFragmentManager().findFragmentByTag(GUIDE_TAG);
+        guideFragment = (GuideFragment)getSupportFragmentManager().findFragmentByTag(GUIDE_TAG);
         if(guideFragment == null) {
             Log.i("SmartGuide", "Creating new GuideFragment");
 
@@ -64,35 +64,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         }
 
         ft.commitAllowingStateLoss();
-        getFragmentManager().executePendingTransactions();
-
-        /*
-        if(savedInstanceState == null) {
-            Log.i("SmartGuide", "new state");
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-            guideFragment = GuideFragment.newInstance();
-            guideFragment.setRetainInstance(true);
-            ft.add(R.id.contentFragment, guideFragment, GUIDE_TAG);
-
-            mapFragment = MapFragment.newInstance();
-            mapFragment.setRetainInstance(true);
-            mapFragment.getMapAsync(this);
-            ft.add(R.id.contentFragment, mapFragment, MAP_TAG);
-
-            ft.commit();
-        } else {
-            Log.i("SmartGuide", "resuming state");
-
-            isIn3D = savedInstanceState.getBoolean("isIn3D");
-
-            mapFragment = (MapFragment)getFragmentManager().findFragmentByTag(MAP_TAG);
-            guideFragment = (GuideFragment)getFragmentManager().findFragmentByTag(GUIDE_TAG);
-
-            Log.i("SmartGuide", mapFragment == null ? "mapFragment: fucked" : "mapFragment: ok");
-            Log.i("SmartGuide", guideFragment == null ? "guideFragment: fucked" : "guideFragment: ok");
-        }
-        */
+        getSupportFragmentManager().executePendingTransactions();
     }
 
     @Override
@@ -115,26 +87,26 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 //ft.setCustomAnimations(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
 
                 isIn3D = isChecked;
 
                 if(isIn3D) {
-                    //Toast.makeText(getApplicationContext(), "Aan", Toast.LENGTH_SHORT).show();
-                    //ft.replace(R.id.contentFragment, guideFragment);
                     ft.hide(mapFragment);
                     ft.show(guideFragment);
+
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 } else {
-                    //Toast.makeText(getApplicationContext(), "Uit", Toast.LENGTH_SHORT).show();
-                    //ft.replace(R.id.contentFragment, mapFragment);
                     ft.hide(guideFragment);
                     ft.show(mapFragment);
+
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 }
 
                 ft.addToBackStack(null);
                 ft.commitAllowingStateLoss();
-                getFragmentManager().executePendingTransactions();
+                getSupportFragmentManager().executePendingTransactions();
             }
         });
 
@@ -154,10 +126,5 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }
