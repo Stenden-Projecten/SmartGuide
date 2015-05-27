@@ -4,11 +4,11 @@ import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,31 +18,86 @@ import com.google.android.gms.maps.model.LatLng;
 
 
 public class MainActivity extends ActionBarActivity implements OnMapReadyCallback, GuideFragment.OnFragmentInteractionListener {
-
     MapFragment mapFragment;
     GuideFragment guideFragment;
 
-    boolean isIn3D = false;
+    final String GUIDE_TAG = "guideFragment";
+    final String MAP_TAG = "mapFragment";
+
+    boolean isIn3D;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState != null) {
+            isIn3D = savedInstanceState.getBoolean("isIn3D");
+        }
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        mapFragment = (MapFragment)getFragmentManager().findFragmentByTag(MAP_TAG);
         if(mapFragment == null) {
+            Log.i("SmartGuide", "Creating new MapFragment");
+
             mapFragment = MapFragment.newInstance();
             mapFragment.getMapAsync(this);
+
+            ft.add(R.id.contentFragment, mapFragment, MAP_TAG);
         }
 
+        guideFragment = (GuideFragment)getFragmentManager().findFragmentByTag(GUIDE_TAG);
         if(guideFragment == null) {
+            Log.i("SmartGuide", "Creating new GuideFragment");
+
             guideFragment = GuideFragment.newInstance();
+            guideFragment.setRetainInstance(true);
+
+            ft.add(R.id.contentFragment, guideFragment, GUIDE_TAG);
         }
 
-        if(savedInstanceState == null) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.contentFragment, mapFragment);
-            ft.commit();
+        if(isIn3D) {
+            ft.hide(mapFragment);
+        } else {
+            ft.hide(guideFragment);
         }
+
+        ft.commitAllowingStateLoss();
+        getFragmentManager().executePendingTransactions();
+
+        /*
+        if(savedInstanceState == null) {
+            Log.i("SmartGuide", "new state");
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+            guideFragment = GuideFragment.newInstance();
+            guideFragment.setRetainInstance(true);
+            ft.add(R.id.contentFragment, guideFragment, GUIDE_TAG);
+
+            mapFragment = MapFragment.newInstance();
+            mapFragment.setRetainInstance(true);
+            mapFragment.getMapAsync(this);
+            ft.add(R.id.contentFragment, mapFragment, MAP_TAG);
+
+            ft.commit();
+        } else {
+            Log.i("SmartGuide", "resuming state");
+
+            isIn3D = savedInstanceState.getBoolean("isIn3D");
+
+            mapFragment = (MapFragment)getFragmentManager().findFragmentByTag(MAP_TAG);
+            guideFragment = (GuideFragment)getFragmentManager().findFragmentByTag(GUIDE_TAG);
+
+            Log.i("SmartGuide", mapFragment == null ? "mapFragment: fucked" : "mapFragment: ok");
+            Log.i("SmartGuide", guideFragment == null ? "guideFragment: fucked" : "guideFragment: ok");
+        }
+        */
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("isIn3D", isIn3D);
     }
 
     @Override
@@ -56,7 +111,6 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         Switch s = (Switch)menu.findItem(R.id.switchId).getActionView().findViewById(R.id.modeSwitch);
-        //Toast.makeText(getApplicationContext(), isIn3D ? "3d" : "2d", Toast.LENGTH_SHORT).show();
         s.setChecked(isIn3D);
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -66,15 +120,21 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
                 isIn3D = isChecked;
 
-                if (isChecked) {
+                if(isIn3D) {
                     //Toast.makeText(getApplicationContext(), "Aan", Toast.LENGTH_SHORT).show();
-                    ft.replace(R.id.contentFragment, guideFragment);
+                    //ft.replace(R.id.contentFragment, guideFragment);
+                    ft.hide(mapFragment);
+                    ft.show(guideFragment);
                 } else {
                     //Toast.makeText(getApplicationContext(), "Uit", Toast.LENGTH_SHORT).show();
-                    ft.replace(R.id.contentFragment, mapFragment);
+                    //ft.replace(R.id.contentFragment, mapFragment);
+                    ft.hide(guideFragment);
+                    ft.show(mapFragment);
                 }
 
-                ft.commit();
+                ft.addToBackStack(null);
+                ft.commitAllowingStateLoss();
+                getFragmentManager().executePendingTransactions();
             }
         });
 
