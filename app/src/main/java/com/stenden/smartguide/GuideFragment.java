@@ -29,13 +29,6 @@ public class GuideFragment extends BarCodeScannerFragment {
         });
     }
 
-    /*
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_guide, container, false);
-    }
-    */
-
     @Override
     public int getRequestedCameraId() {
         return -1;
