@@ -1,5 +1,6 @@
 package com.stenden.smartguide;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -118,7 +119,9 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+
+            Intent t = new Intent(this,About.class);
+            startActivity(t);
         }
 
         return super.onOptionsItemSelected(item);
