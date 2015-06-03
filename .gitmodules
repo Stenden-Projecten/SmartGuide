@@ -1,4 +1,0 @@
-[submodule "libs/zxingfragmentlib"]
-	path = libs/zxingfragmentlib
-	url = https://github.com/mitoyarzun/zxingfragmentlib.git
-	branch = master
