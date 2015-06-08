@@ -112,7 +112,7 @@ public final class ViewfinderView extends View {
       scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
       int middle = frame.height() / 2 + frame.top;
       canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1, middle + 2, paint);
-      */
+
 
       float scaleX = frame.width() / (float) previewFrame.width();
       float scaleY = frame.height() / (float) previewFrame.height();
@@ -148,6 +148,7 @@ public final class ViewfinderView extends View {
           }
         }
       }
+      */
 
       // Request another update at the animation interval, but only repaint the laser line,
       // not the entire viewfinder mask.

@@ -97,12 +97,12 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
                     ft.hide(mapFragment);
                     ft.show(guideFragment);
 
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 } else {
                     ft.hide(guideFragment);
                     ft.show(mapFragment);
 
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                    //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 }
 
                 ft.addToBackStack(null);
