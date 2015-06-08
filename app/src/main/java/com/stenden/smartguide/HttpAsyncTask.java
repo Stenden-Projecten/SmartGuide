@@ -33,9 +33,9 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
         return result;
     }
 
-    private HttpCallback callback;
+    private HTTPCallback callback;
 
-    public HttpAsyncTask(HttpCallback c) {
+    public HttpAsyncTask(HTTPCallback c) {
         callback = c;
     }
 

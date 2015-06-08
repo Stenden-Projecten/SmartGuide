@@ -1,5 +1,5 @@
 package com.stenden.smartguide;
 
-public interface HttpCallback {
+public interface HTTPCallback {
     void Done(String data);
 }
