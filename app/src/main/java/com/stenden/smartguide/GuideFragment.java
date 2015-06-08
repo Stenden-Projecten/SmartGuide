@@ -3,7 +3,6 @@ package com.stenden.smartguide;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.zxing.Result;
 import com.welcu.android.zxingfragmentlib.BarCodeScannerFragment;
 
@@ -26,7 +25,8 @@ public class GuideFragment extends BarCodeScannerFragment implements HttpCallbac
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         final HttpCallback c = this;
