@@ -37,9 +37,12 @@ public class GuideFragment extends BarCodeScannerFragment implements HTTPCallbac
             @Override
             public void result(Result lastResult) {
                 Matcher m = pattern.matcher(lastResult.toString());
-                if(m.matches()) {
+                if(m.matches())
+                {
                     new HttpAsyncTask(c).execute("http://school.kuubstudios.com/SmartGuide-backend/api.php?ID=" + m.group(1));
-                } else {
+                }
+                else
+                {
                     Toast.makeText(getActivity(), "Onbekende QR code", Toast.LENGTH_SHORT).show();
                 }
             }
