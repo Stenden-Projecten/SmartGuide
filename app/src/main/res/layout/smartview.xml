@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0dp"
+    android:background="@drawable/blur"
+    tools:context=".SmartView">
+
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="@string/Overig"
+        android:id="@+id/button3"
+        android:layout_gravity="left|center_vertical"
+        android:background="#ff00f504"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/button4"
+        android:layout_alignStart="@+id/button4"
+        android:layout_marginBottom="183dp"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        android:textStyle="italic"
+        android:onClick="AboutClick"/>
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="@string/about_button"
+        android:id="@+id/button2"
+        android:layout_gravity="left|bottom"
+        android:background="#fff595d4"
+        android:layout_alignTop="@+id/button3"
+        android:layout_toRightOf="@+id/button3"
+        android:layout_toEndOf="@+id/button3"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp"
+        android:textColor="@android:color/white"
+        android:textSize="60sp"
+        android:textStyle="italic"
+        android:onClick="AboutClick"
+        android:nestedScrollingEnabled="false" />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="@string/smartview2d_button"
+        android:id="@+id/button4"
+        android:layout_gravity="right|center_vertical"
+        android:background="#ff3ea9f5"
+        android:layout_marginLeft="43dp"
+        android:layout_marginStart="43dp"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="42dp"
+        android:textColor="@android:color/white"
+        android:textSize="48sp"
+        android:textStyle="italic"
+        android:onClick="Click2D"/>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="@string/smartview3d_button"
+        android:id="@+id/button"
+        android:layout_gravity="right|bottom"
+        android:background="#ff1d24"
+        android:layout_alignTop="@+id/button4"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:textColor="@android:color/white"
+        android:textSize="48sp"
+        android:textStyle="italic"
+        android:onClick="Click3D"/>
+</RelativeLayout>

@@ -26,15 +26,24 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     final String GUIDE_TAG = "guideFragment";
     final String MAP_TAG = "mapFragment";
 
-    boolean isIn3D;
-
+    boolean isIn3D = false;
+    public void setMode(boolean toggle)
+    {
+        if(toggle == true) {
+            isIn3D=true;
+        }
+        else
+        {
+            isIn3D = false;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         if(savedInstanceState != null) {
-            isIn3D = savedInstanceState.getBoolean("isIn3D");
+            //isIn3D = savedInstanceState.getBoolean("isIn3D");
         }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -127,10 +136,5 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
     }
 }

@@ -1,0 +1,5 @@
+<root>
+    <item name='com.google.vrtoolkit.cardboard.CardboardActivity'>
+        <annotation name='java.lang.annotation.Deprecated' />
+    </item>
+</root>
