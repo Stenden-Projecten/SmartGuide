@@ -31,10 +31,14 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
     {
         if(toggle == true) {
             isIn3D=true;
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.hide(mapFragment);
         }
         else
         {
             isIn3D = false;
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.hide(guideFragment);
         }
     }
     @Override

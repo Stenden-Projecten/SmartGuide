@@ -6,15 +6,15 @@
     <string name="title_activity_guide">GuideActivity</string>
     <string name="about_text">\t Stenden made by students \n\t gemaakt door:\n\n\t Alex Iakab \n\t Esther Rijntjes\n\t Harm Ameln\n\t Mark Mandemaker\n\t René Cordes\n\t Robin de Bruin\n\t Wisse Aarts</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+            <!---->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_content">Dummy</string>
     <string name="dummy_button">Dummby</string>
     <string name="title_activity_fullscreen_guide">FullscreenGuideActivity</string>
-    <!-- Button texten hier -->
+            <!-- Button texten hier -->
     <string name="smartview2d_button">2D</string>
     <string name="about_button">i</string>
     <string name="smartview3d_button">3D</string>
-    <string name="Overig">Spul hier</string>
+    <string name="Overig">About</string>
 
 </resources>
