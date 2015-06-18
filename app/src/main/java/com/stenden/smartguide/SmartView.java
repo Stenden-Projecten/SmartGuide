@@ -1,6 +1,8 @@
 package com.stenden.smartguide;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -24,6 +26,10 @@ public class SmartView  extends Activity{
             Intent t = new Intent(this,About.class);
             startActivity(t);
     }
+    public void InfoClick(View v)
+    {
+       createDialog();
+    }
     public void Click2D(View v)
     {
         MainActivity m = new MainActivity();
@@ -38,7 +44,14 @@ public class SmartView  extends Activity{
         Intent t = new Intent(this,m.getClass());
         startActivity(t);
     }
-
+    private void createDialog()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Info")
+                .setMessage("Deze app werkt het best met schermen van 5'' of meer.")
+                .setIcon(android.R.drawable.ic_menu_info_details)
+                .show();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
