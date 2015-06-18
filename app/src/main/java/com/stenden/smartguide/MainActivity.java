@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebViewFragment;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -20,7 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 
 public class MainActivity extends ActionBarActivity implements OnMapReadyCallback {
-    SupportMapFragment mapFragment;
+    MapFragment mapFragment;
     GuideFragment guideFragment;
 
     final String GUIDE_TAG = "guideFragment";
@@ -52,12 +53,12 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentByTag(MAP_TAG);
+        mapFragment = (MapFragment)getSupportFragmentManager().findFragmentByTag(MAP_TAG);
         if(mapFragment == null) {
             Log.i("SmartGuide", "Creating new MapFragment");
 
-            mapFragment = SupportMapFragment.newInstance();
-            mapFragment.getMapAsync(this);
+            mapFragment = MapFragment.newInstance();
+            //mapFragment.getMapAsync(this);
 
             ft.add(R.id.contentFragment, mapFragment, MAP_TAG);
         }

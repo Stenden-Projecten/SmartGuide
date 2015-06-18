@@ -48,6 +48,7 @@ public class GuideFragment extends BarCodeScannerFragment implements HTTPCallbac
             }
         });
     }
+
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
