@@ -10,7 +10,7 @@
         android:text="@string/Overig"
         android:id="@+id/button3"
         android:layout_gravity="left|center_vertical"
-        android:background="#ff00f504"
+        android:background="#ff31f560"
         android:textColor="@android:color/white"
         android:textSize="36sp"
         android:textStyle="italic"
