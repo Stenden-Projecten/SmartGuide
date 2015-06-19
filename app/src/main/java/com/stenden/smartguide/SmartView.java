@@ -6,13 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by Alex Iakab on 17-6-2015.
- */
 public class SmartView  extends Activity{
 
 
@@ -32,23 +30,31 @@ public class SmartView  extends Activity{
     }
     public void Click2D(View v)
     {
+        Log.i("SmartGuide", "2D");
         MainActivity m = new MainActivity();
         m.setMode(false);
         Intent t = new Intent(this,m.getClass());
+        Bundle e = new Bundle();
+        e.putBoolean("isIn3D", false);
+        t.putExtras(e);
         startActivity(t);
     }
     public void Click3D(View v)
     {
+        Log.i("SmartGuide", "3D");
         MainActivity m = new MainActivity();
         m.setMode(true);
         Intent t = new Intent(this,m.getClass());
+        Bundle e = new Bundle();
+        e.putBoolean("isIn3D", true);
+        t.putExtras(e);
         startActivity(t);
     }
     private void createDialog()
     {
         new AlertDialog.Builder(this)
                 .setTitle("Info")
-                .setMessage("Deze app werkt het best met schermen van 5'' of meer.")
+                .setMessage("Deze app werkt het best met schermen van 5\" of meer.")
                 .setIcon(android.R.drawable.ic_menu_info_details)
                 .show();
     }

@@ -48,8 +48,14 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         if(savedInstanceState != null) {
-            //isIn3D = savedInstanceState.getBoolean("isIn3D");
+            Log.i("SmartGuide", "savedInstanceState");
+            isIn3D = savedInstanceState.getBoolean("isIn3D");
+        } else {
+            Log.i("SmartGuide", "intent");
+            isIn3D = getIntent().getExtras().getBoolean("isIn3D");
         }
+
+        Log.i("SmartGuide", "isIn3D: " + isIn3D);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -58,7 +64,6 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
             Log.i("SmartGuide", "Creating new MapFragment");
 
             mapFragment = MapFragment.newInstance();
-            //mapFragment.getMapAsync(this);
 
             ft.add(R.id.contentFragment, mapFragment, MAP_TAG);
         }
@@ -117,7 +122,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
                     ft.hide(guideFragment);
                     ft.show(mapFragment);
 
-                    //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                    //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
 
                 ft.addToBackStack(null);
