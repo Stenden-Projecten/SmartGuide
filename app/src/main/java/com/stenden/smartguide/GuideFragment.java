@@ -8,9 +8,14 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.welcu.android.zxingfragmentlib.BarCodeScannerFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +27,8 @@ public class GuideFragment extends BarCodeScannerFragment implements HTTPCallbac
     static final int TIME_OUT = 5000;
     private AlertDialog mAlertDialog;
     private Pattern pattern;
+
+    private HashMap<String, Long> lastTimes = new HashMap<>();
 
     public GuideFragment() {
         pattern = Pattern.compile("\\bGUIDE:(\\d+)\\b");
@@ -36,6 +43,18 @@ public class GuideFragment extends BarCodeScannerFragment implements HTTPCallbac
         this.setmCallBack(new IResultCallback() {
             @Override
             public void result(Result lastResult) {
+                Log.i("SmartGuide", lastResult.toString());
+                if(lastTimes.containsKey(lastResult.toString())) {
+                    Log.i("SmartGuide", "last scan was " + lastTimes.get(lastResult.toString()));
+                    Log.i("SmartGuide", "now is " + System.currentTimeMillis());
+                    if((lastTimes.get(lastResult.toString()) + 5000) > System.currentTimeMillis()) {
+                        Log.i("SmartGuide", "too soon");
+                        return;
+                    }
+                }
+
+                lastTimes.put(lastResult.toString(), System.currentTimeMillis());
+
                 Matcher m = pattern.matcher(lastResult.toString());
                 if(m.matches())
                 {
@@ -86,8 +105,26 @@ public class GuideFragment extends BarCodeScannerFragment implements HTTPCallbac
 
             if(success) {
                 String text = json.getString("tekst");
-                //JSONArray lokalen = json.getJSONArray("lokalen");
-                //JSONArray leraren = json.getJSONArray("leraren");
+
+                try {
+                    JSONObject lokalen = json.getJSONObject("lokalen");
+                    Iterator<String> i = lokalen.keys();
+                    while (i.hasNext()) {
+                        String key = i.next();
+                        String value = lokalen.getString(key);
+                        text += "\n" + key + ": " + value;
+                    }
+                } catch(JSONException e) {}
+
+                try {
+                    JSONObject leraren = json.getJSONObject("leraren");
+                    Iterator<String> i2 = leraren.keys();
+                    while (i2.hasNext()) {
+                        String key = i2.next();
+                        String value = leraren.getString(key);
+                        text += "\n" + key + ": " + value;
+                    }
+                } catch(JSONException e) {}
 
                 //Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
                 createDialog(text);
